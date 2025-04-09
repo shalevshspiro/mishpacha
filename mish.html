@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>עמותת משפאחה</title>
+  <link rel="stylesheet" href="mish.css">
+</head>
+<body>
+  <header>
+    <div id="logo-container"></div>
+    <p class="slogan">משפחה היא לא רק דם – היא חום, קבלה ותמיכה.</p>
+    <nav>
+      <ul>
+        <li><a href="#home">בית</a></li>
+        <li><a href="#about">אודות</a></li>
+        <li><a href="#programs">תוכניות</a></li>
+        <li><a href="#donate">איך לעזור</a></li>
+        <li><a href="#contact">צור קשר</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home">
+    <h1>ברוכים הבאים לעמותת משפאחה</h1>
+    <p>עוזרים לילדים יתומים לבנות עתיד טוב יותר</p>
+    <button onclick="scrollToDonate()">לתרומה</button>
+  </section>
+
+  <section id="about">
+    <h2>אודות העמותה</h2>
+    <p>
+      עמותת "משפאחה" פועלת למען ילדים ונערים יתומים, מתוך הבנה עמוקה של תחושת האובדן, הבדידות והפערים החברתיים שאיתם הם מתמודדים.
+      <br><br>
+      אנו מאמינים שאין תחליף להורה – אך קיימת דרך לבנות עבור אותם ילדים רשת תמיכה חמה ומשמעותית: רגשית, חינוכית וחברתית.
+      <br><br>
+      החזון שלנו הוא ליצור עבורם סביבה תומכת שתאפשר להם לצמוח, לפרוח, ולהאמין בעתיד – למרות הכל.
+    </p>
+  </section>
+
+  <section id="programs">
+    <h2>תוכניות ופעילויות</h2>
+    <p>חינוך, בריאות, דיור, תמיכה במשפחות...</p>
+  </section>
+
+  <section id="donate">
+    <h2>איך אפשר לעזור?</h2>
+    <p>תרומות, חסות לילדים, התנדבות, מתנות קהילתיות...</p>
+  </section>
+
+  <section id="gallery">
+    <h2>מהשטח</h2>
+    <div id="gallery-container"></div>
+  </section>
+
+  <section id="video">
+    <h2>סרטון העמותה</h2>
+    <div id="video-container"></div>
+  </section>
+
+  <section id="contact">
+    <h2>צור קשר</h2>
+    <form>
+      <input type="text" placeholder="שם מלא" required>
+      <input type="email" placeholder="אימייל" required>
+      <textarea placeholder="הודעה" required></textarea>
+      <button type="submit">שלח</button>
+    </form>
+  </section>
+
+  <script src="mish.js"></script>
+</body>
+</html>
