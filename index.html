@@ -75,12 +75,15 @@
   <section id="contact">
     <h2>צור קשר</h2>
     <p>טלפון: 054-0000000 | אימייל: info@mishpaha.org | זמינות בימים א'-ה' 9:00–17:00</p>
-    <form action="https://formspree.io/f/mvgkdzwq" method="POST">
-      <input type="text" name="name" placeholder="שם מלא" required>
-      <input type="email" name="email" placeholder="אימייל" required>
-      <textarea name="message" placeholder="הודעה" required></textarea>
-      <button type="submit">שלח</button>
-    </form>
+<form action="https://formspree.io/f/mvgkdzwq" method="POST">
+  <!-- שדה honeypot -->
+  <input type="text" name="_gotcha" style="display:none">
+
+  <input type="text" name="name" placeholder="שם מלא" required>
+  <input type="email" name="email" placeholder="אימייל" required>
+  <textarea name="message" placeholder="הודעה" required></textarea>
+  <button type="submit">שלח</button>
+</form>
   </section>
 
   <script src="mish.js"></script>
