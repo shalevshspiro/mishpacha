@@ -1,0 +1,62 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  background-color: #f9f9f9;
+  color: #222;
+}
+
+header {
+  background: linear-gradient(90deg, #8e44ad, #f39c12);
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+.home-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #ffeb3b;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
+
+main {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* ----- התאמה לכרטיסי כתבות ----- */
+.article-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.article-card:hover {
+  transform: scale(1.02);
+}
+
+.article-card h2 {
+  color: #8e44ad;
+  margin-top: 0;
+  text-align: right;
+}
+
+.article-card p {
+  line-height: 1.6;
+  text-align: right;
+}
