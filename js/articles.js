@@ -1,16 +1,27 @@
-document.addEventListener("DOMContentLoaded", () => {
+// js/articles.js
+
+import { db } from './firebase.js';
+import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("articles-container");
 
-  // Placeholder להמחשה
-  const sampleArticles = [
-    { title: "איך תמיכה רגשית מצילה חיים", intro: "סיפור מרגש של ילד ששרד את האובדן בעזרת העמותה." },
-    { title: "כוחה של קהילה", intro: "איך יצירת רשת תמיכה עזרה לעשרות יתומים להרגיש שוב שייכים." }
-  ];
+  try {
+    const q = query(collection(db, "articles"), orderBy("date", "desc"));
+    const querySnapshot = await getDocs(q);
 
-  sampleArticles.forEach(article => {
-    const card = document.createElement("div");
-    card.className = "article-card";
-    card.innerHTML = `<h2>${article.title}</h2><p>${article.intro}</p>`;
-    container.appendChild(card);
-  });
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const card = document.createElement("div");
+      card.className = "article-card";
+      card.innerHTML = `
+        <h2>${data.title}</h2>
+        <p>${data.intro}</p>
+        <a href="article.html?id=${doc.id}">לקריאה מלאה</a>
+      `;
+      container.appendChild(card);
+    });
+  } catch (error) {
+    console.error("שגיאה בטעינת כתבות:", error);
+  }
 });
