@@ -4,12 +4,12 @@ import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBHE-kaS1oNhZ3_YtIKCjVhIfu9HABV-0E",
+  authDomain: "articles-671c6.firebaseapp.com",
+  projectId: "articles-671c6",
+  storageBucket: "articles-671c6.appspot.com",    // ✅ תיקון כאן
+  messagingSenderId: "985955307070",
+  appId: "1:985955307070:web:a194c0d48df650cba34b6f"
 };
 
 const app = initializeApp(firebaseConfig);
