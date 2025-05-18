@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("articles-container");
 
   try {
-    const q = query(collection(db, "articles"), orderBy("date", "desc"));
+const q = collection(db, "articles");
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
