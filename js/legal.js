@@ -1,4 +1,4 @@
-fetch('./js/legal.json')
+fetch('../js/legal.json')
   .then(response => response.json())
   .then(data => {
     const rulesContainer = document.getElementById('rules-container');
