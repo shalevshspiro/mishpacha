@@ -150,4 +150,46 @@ document.addEventListener("DOMContentLoaded", async () => {
       await loadArticles();
     } catch (error) {
       console.error("שגיאה:", error);
-      alert("שגיאה בשמירה: " +
+      alert("שגיאה בשמירה: " + error.message);
+    }
+  });
+
+  // מחיקה
+  deleteBtn.addEventListener("click", async () => {
+    if (!selectedDocId) return;
+    if (!confirm("האם אתה בטוח שברצונך למחוק את הכתבה?")) return;
+
+    try {
+      await deleteDoc(doc(db, "articles", selectedDocId));
+      alert("כתבה נמחקה.");
+      resetForm();
+      await loadArticles();
+    } catch (error) {
+      console.error("שגיאה במחיקה:", error);
+      alert("שגיאה במחיקה: " + error.message);
+    }
+  });
+
+  function resetForm() {
+    selectedDocId = null;
+    articleForm.reset();
+    quill.setText("");
+    imageUrl = "";
+    previewImage.style.display = "none";
+    articleSelect.value = "";
+    deleteBtn.style.display = "none";
+  }
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loginForm.style.display = "none";
+      adminPanel.style.display = "block";
+      logoutButton.style.display = "block";
+      loadArticles();
+    } else {
+      loginForm.style.display = "block";
+      adminPanel.style.display = "none";
+      logoutButton.style.display = "none";
+    }
+  });
+});
