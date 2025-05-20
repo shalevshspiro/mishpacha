@@ -126,3 +126,60 @@ form button {
 html {
   scroll-behavior: smooth;
 }
+.intro-text {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.cta-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.cta-button {
+  text-decoration: none;
+  background: linear-gradient(90deg, #8e44ad, #f39c12);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1em;
+  transition: transform 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  line-height: 2em;
+  font-size: 1.1em;
+}
+
+ul li::before {
+  content: "• ";
+  color: #f39c12;
+  margin-left: 5px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 0;
+  font-size: 0.9em;
+  background-color: #f0f0f0;
+  margin-top: 60px;
+}
+
+.admin-link {
+  color: #888;
+  text-decoration: none;
+}
+
+.admin-link:hover {
+  text-decoration: underline;
+}
