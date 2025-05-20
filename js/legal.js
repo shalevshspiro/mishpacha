@@ -4,11 +4,25 @@ fetch('../js/legal.json')
     const rulesContainer = document.getElementById('rules-container');
     const formsContainer = document.getElementById('forms-container');
 
-    // הצגת כללים
+    // הצגת כללים (accordion)
     data.rules.forEach(rule => {
       const ruleDiv = document.createElement('div');
       ruleDiv.className = 'rule-item';
-      ruleDiv.innerHTML = `<h3>${rule.title}</h3><p>${rule.text}</p>`;
+
+      const button = document.createElement('button');
+      button.className = 'rule-toggle';
+      button.textContent = rule.title;
+
+      const text = document.createElement('p');
+      text.textContent = rule.text;
+      text.style.display = 'none';
+
+      button.addEventListener('click', () => {
+        text.style.display = text.style.display === 'none' ? 'block' : 'none';
+      });
+
+      ruleDiv.appendChild(button);
+      ruleDiv.appendChild(text);
       rulesContainer.appendChild(ruleDiv);
     });
 
