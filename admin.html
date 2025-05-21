@@ -48,6 +48,13 @@
     <!-- עורך טקסט -->
     <div id="editor" style="height: 300px;"></div>
 
+    <!-- העלאת מסמך נוסף -->
+    <label for="extraFileUpload">מסמך מצורף (PDF, Word וכו')</label>
+    <input type="file" id="extraFileUpload" accept=".pdf,.doc,.docx,.txt">
+    <div id="extraFileLinkContainer" style="display: none; margin-top: 10px;">
+      קובץ הועלה: <a id="extraFileLink" href="#" target="_blank">פתח קובץ</a>
+    </div>
+
     <!-- כפתורים -->
     <button type="submit">💾 שמור כתבה</button>
     <button type="button" id="deleteBtn" style="display: none;">🗑 מחק כתבה</button>

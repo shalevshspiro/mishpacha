@@ -56,3 +56,12 @@ button:hover {
 .back-link:hover {
     text-decoration: underline;
 }
+
+/* תוספת */
+#extraFileLinkContainer {
+    background-color: #eef2f7;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    margin-top: 10px;
+}

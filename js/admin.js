@@ -12,6 +12,7 @@ import {
 
 let selectedDocId = null;
 let imageUrl = "";
+let extraFileUrl = "";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const loginForm = document.getElementById("loginForm");
@@ -24,22 +25,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   const imageUpload = document.getElementById("imageUpload");
   const previewImage = document.getElementById("previewImage");
 
+  const extraFileUpload = document.getElementById("extraFileUpload");
+  const extraFileLink = document.getElementById("extraFileLink");
+  const extraFileLinkContainer = document.getElementById("extraFileLinkContainer");
+
   window.quill = new Quill("#editor", {
     theme: "snow",
     placeholder: "כתוב כאן את תוכן הכתבה..."
   });
 
-  // Cloudinary - תמונה
+  // Cloudinary – העלאת תמונה
   imageUpload.addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "YOUR_UPLOAD_PRESET"); // ← להחליף בעתיד
-    formData.append("cloud_name", "YOUR_CLOUD_NAME");        // ← להחליף בעתיד
+    formData.append("upload_preset", "mishpacha");
 
-    const res = await fetch("https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload", {
+    const res = await fetch("https://api.cloudinary.com/v1_1/dx2xpx9jg/image/upload", {
       method: "POST",
       body: formData
     });
@@ -48,6 +52,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     imageUrl = data.secure_url;
     previewImage.src = imageUrl;
     previewImage.style.display = "block";
+  });
+
+  // Cloudinary – העלאת קובץ נוסף
+  extraFileUpload.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "mishpacha");
+
+    const res = await fetch("https://api.cloudinary.com/v1_1/dx2xpx9jg/auto/upload", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+    extraFileUrl = data.secure_url;
+    extraFileLink.href = extraFileUrl;
+    extraFileLink.textContent = file.name;
+    extraFileLinkContainer.style.display = "block";
   });
 
   // התחברות
@@ -108,6 +133,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     imageUrl = data.image || "";
     previewImage.src = imageUrl;
     previewImage.style.display = imageUrl ? "block" : "none";
+
+    extraFileUrl = data.extraFile || "";
+    if (extraFileUrl) {
+      extraFileLink.href = extraFileUrl;
+      extraFileLink.textContent = "צפה בקובץ";
+      extraFileLinkContainer.style.display = "block";
+    } else {
+      extraFileLinkContainer.style.display = "none";
+    }
+
     deleteBtn.style.display = "inline-block";
   });
 
@@ -130,6 +165,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       category,
       content,
       image: imageUrl,
+      extraFile: extraFileUrl,
       updatedAt: serverTimestamp()
     };
 
@@ -175,7 +211,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     articleForm.reset();
     quill.setText("");
     imageUrl = "";
+    extraFileUrl = "";
     previewImage.style.display = "none";
+    extraFileLinkContainer.style.display = "none";
     articleSelect.value = "";
     deleteBtn.style.display = "none";
   }
