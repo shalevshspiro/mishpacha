@@ -9,18 +9,18 @@ body {
 header {
   background: linear-gradient(90deg, #8e44ad, #f39c12);
   color: #fff;
-  padding: 20px 0;
+  padding: 16px 0;
   text-align: center;
 }
 
 header h1 {
   margin: 0;
-  font-size: 2em;
+  font-size: 1.8em;
 }
 
 .home-link {
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 8px;
   color: #ffeb3b;
   text-decoration: none;
   font-weight: bold;
@@ -31,59 +31,60 @@ header h1 {
 }
 
 main {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 0 20px;
+  max-width: 960px;
+  margin: 30px auto;
+  padding: 0 16px;
 }
 
 /* ----- כרטיס כתבה ----- */
 .article-card {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-  padding: 20px;
-  transition: all 0.3s ease;
-}
-
-.article-card:hover {
-  transform: scale(1.02);
+  box-shadow: 0 0 6px rgba(0,0,0,0.05);
+  margin-bottom: 16px;
+  padding: 16px;
+  transition: all 0.2s ease;
 }
 
 .article-card h2 {
   color: #8e44ad;
-  margin-top: 0;
+  font-size: 1.2em;
+  margin: 0 0 10px;
   text-align: right;
 }
 
 .article-card p {
-  line-height: 1.6;
+  line-height: 1.5;
+  font-size: 0.95em;
   text-align: right;
+  margin: 0 0 10px;
 }
 
 /* ✅ תמונה ממוזערת */
 .article-thumb {
   width: 100%;
-  max-height: 200px;
+  max-height: 150px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }
 
 /* ✅ לוגו */
 .article-logo {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   object-fit: cover;
   border-radius: 50%;
-  float: left;
+  float: right;
   margin-left: 10px;
+  margin-bottom: 5px;
 }
 
 /* ✅ קישור לקובץ מצורף */
 .article-card a {
   color: #8e44ad;
   font-weight: bold;
+  font-size: 0.9em;
   text-decoration: none;
 }
 
