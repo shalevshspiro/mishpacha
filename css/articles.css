@@ -36,7 +36,7 @@ main {
   padding: 0 20px;
 }
 
-/* ----- התאמה לכרטיסי כתבות ----- */
+/* ----- כרטיס כתבה ----- */
 .article-card {
   background-color: #fff;
   border-radius: 8px;
@@ -59,4 +59,34 @@ main {
 .article-card p {
   line-height: 1.6;
   text-align: right;
+}
+
+/* ✅ תמונה ממוזערת */
+.article-thumb {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* ✅ לוגו */
+.article-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  float: left;
+  margin-left: 10px;
+}
+
+/* ✅ קישור לקובץ מצורף */
+.article-card a {
+  color: #8e44ad;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.article-card a:hover {
+  text-decoration: underline;
 }
