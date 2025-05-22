@@ -39,7 +39,7 @@ main {
 
 /* ✅ תמונה ראשית */
 .article-image {
-  width: 100%;
+  width: 25%;
   max-height: 220px;   /* במקום 350 */
   object-fit: cover;
   border-radius: 10px;
