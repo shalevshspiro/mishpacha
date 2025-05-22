@@ -27,31 +27,29 @@ document.addEventListener("DOMContentLoaded", async () => {
       const logo = data.logo || "";
       const extraFile = data.extraFile || "";
 
-      let html = "";
+      const imageHtml = image
+        ? `<img src="${image}" alt="תמונה ראשית" class="article-thumb">`
+        : `<div class="article-thumb" style="background:#eee;"></div>`;
 
-      if (logo) {
-        html += `<img src="${logo}" alt="לוגו" class="article-logo" style="width: 40px; height: 40px; float: left; margin-left: 10px; border-radius: 50%;">`;
-      }
+      const logoHtml = logo
+        ? `<img src="${logo}" alt="לוגו" class="article-logo">`
+        : "";
 
-      if (image) {
-        html += `<img src="${image}" alt="תמונה ראשית" class="article-thumb" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 10px;">`;
-      }
+      const fileLinkHtml = extraFile
+        ? `<a href="${extraFile}" target="_blank" class="file-link">📎 קובץ מצורף</a>`
+        : "";
 
-      html += `
-        <h2>${title}</h2>
-        <p>${intro}</p>
-        <a href="article.html?id=${doc.id}">לקריאה מלאה</a>
+      const contentHtml = `
+        <div class="article-card-content">
+          ${logoHtml}
+          <h2>${title}</h2>
+          <p>${intro}</p>
+          <a href="article.html?id=${doc.id}">לקריאה מלאה</a>
+          ${fileLinkHtml}
+        </div>
       `;
 
-      if (extraFile) {
-        html += `
-          <p style="margin-top: 10px;">
-            <a href="${extraFile}" target="_blank">📎 לצפייה בקובץ</a>
-          </p>
-        `;
-      }
-
-      card.innerHTML = html;
+      card.innerHTML = imageHtml + contentHtml;
       container.appendChild(card);
     });
 

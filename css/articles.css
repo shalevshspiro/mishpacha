@@ -38,35 +38,59 @@ main {
 
 /* ----- כרטיס כתבה ----- */
 .article-card {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: start;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 6px rgba(0,0,0,0.05);
   margin-bottom: 16px;
-  padding: 16px;
+  padding: 12px;
+  gap: 16px;
   transition: all 0.2s ease;
+}
+
+.article-card:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.article-thumb {
+  width: 100%;
+  height: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.article-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .article-card h2 {
   color: #8e44ad;
-  font-size: 1.2em;
-  margin: 0 0 10px;
+  font-size: 1.1em;
+  margin: 0 0 6px;
   text-align: right;
 }
 
 .article-card p {
   line-height: 1.5;
-  font-size: 0.95em;
+  font-size: 0.9em;
+  margin: 0 0 8px;
   text-align: right;
-  margin: 0 0 10px;
 }
 
-/* ✅ תמונה ממוזערת */
-.article-thumb {
-  width: 100%;
-  max-height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 8px;
+.article-card a {
+  color: #8e44ad;
+  font-weight: bold;
+  font-size: 0.9em;
+  text-decoration: none;
+}
+
+.article-card a:hover {
+  text-decoration: underline;
 }
 
 /* ✅ לוגו */
@@ -78,16 +102,4 @@ main {
   float: right;
   margin-left: 10px;
   margin-bottom: 5px;
-}
-
-/* ✅ קישור לקובץ מצורף */
-.article-card a {
-  color: #8e44ad;
-  font-weight: bold;
-  font-size: 0.9em;
-  text-decoration: none;
-}
-
-.article-card a:hover {
-  text-decoration: underline;
 }
