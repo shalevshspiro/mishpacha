@@ -39,8 +39,7 @@ main {
 
 /* ✅ תמונה ראשית */
 .article-image {
-  width: 32px;
-  height: 32px;
+  width: 180px;
   object-fit: cover;
   border-radius: 50%;
   display: inline-block;
