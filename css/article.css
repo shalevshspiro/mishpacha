@@ -39,12 +39,12 @@ main {
 
 /* ✅ תמונה ראשית */
 .article-image {
-  width: 180px;
+  width: 100%;
+  max-height: 220px;   /* במקום 350 */
   object-fit: cover;
-  border-radius: 50%;
-  display: inline-block;
-  margin-left: 180px;
-  vertical-align: middle;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: block;
 }
 
 /* ✅ תמונות נוספות */
