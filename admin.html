@@ -1,3 +1,5 @@
+// ✅ גרסה מתוקנת ל־admin.html עם העלאת תמונות נוספות
+
 <!DOCTYPE html>
 <html lang="he">
 <head>
@@ -44,6 +46,11 @@
     <!-- תמונה ראשית -->
     <input type="file" id="imageUpload" accept="image/*">
     <img id="previewImage" src="" alt="תמונה ראשית" style="max-width: 200px; display: none; margin-top: 10px;">
+
+    <!-- תמונות נוספות לגוף הכתבה -->
+    <label for="extraImagesUpload">תמונות נוספות לכתבה</label>
+    <input type="file" id="extraImagesUpload" accept="image/*" multiple>
+    <div id="extraImagesPreview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
 
     <!-- עורך טקסט -->
     <div id="editor" style="height: 300px;"></div>

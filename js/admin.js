@@ -1,4 +1,3 @@
-// js/admin.js
 import { db, auth } from './firebase.js';
 import {
   signInWithEmailAndPassword,
@@ -13,6 +12,7 @@ import {
 let selectedDocId = null;
 let imageUrl = "";
 let extraFileUrl = "";
+let extraImagesUrls = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
   const loginForm = document.getElementById("loginForm");
@@ -29,12 +29,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   const extraFileLink = document.getElementById("extraFileLink");
   const extraFileLinkContainer = document.getElementById("extraFileLinkContainer");
 
+  const extraImagesUpload = document.getElementById("extraImagesUpload");
+  const extraImagesPreview = document.getElementById("extraImagesPreview");
+
   window.quill = new Quill("#editor", {
     theme: "snow",
     placeholder: "כתוב כאן את תוכן הכתבה..."
   });
 
-  // Cloudinary – העלאת תמונה
+  // העלאת תמונה ראשית
   imageUpload.addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -54,7 +57,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     previewImage.style.display = "block";
   });
 
-  // Cloudinary – העלאת קובץ נוסף
+  // העלאת תמונות נוספות
+  extraImagesUpload.addEventListener("change", async (e) => {
+    const files = Array.from(e.target.files);
+    extraImagesUrls = [];
+    extraImagesPreview.innerHTML = "";
+
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "mishpacha");
+
+      const res = await fetch("https://api.cloudinary.com/v1_1/dx2xpx9jg/image/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      extraImagesUrls.push(data.secure_url);
+
+      const img = document.createElement("img");
+      img.src = data.secure_url;
+      img.style.maxWidth = "100px";
+      img.style.borderRadius = "8px";
+      extraImagesPreview.appendChild(img);
+    }
+  });
+
+  // העלאת מסמך נוסף
   extraFileUpload.addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -143,6 +173,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       extraFileLinkContainer.style.display = "none";
     }
 
+    extraImagesUrls = data.extraImages || [];
+    extraImagesPreview.innerHTML = "";
+    extraImagesUrls.forEach(url => {
+      const img = document.createElement("img");
+      img.src = url;
+      img.style.maxWidth = "100px";
+      img.style.borderRadius = "8px";
+      extraImagesPreview.appendChild(img);
+    });
+
     deleteBtn.style.display = "inline-block";
   });
 
@@ -166,6 +206,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       content,
       image: imageUrl,
       extraFile: extraFileUrl,
+      extraImages: extraImagesUrls,
       updatedAt: serverTimestamp()
     };
 
@@ -212,8 +253,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     quill.setText("");
     imageUrl = "";
     extraFileUrl = "";
+    extraImagesUrls = [];
     previewImage.style.display = "none";
     extraFileLinkContainer.style.display = "none";
+    extraImagesPreview.innerHTML = "";
     articleSelect.value = "";
     deleteBtn.style.display = "none";
   }
