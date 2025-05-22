@@ -38,23 +38,24 @@ main {
 }
 
 /* ✅ תמונה ראשית */
-#article-image {
+.article-image {
   width: 100%;
   max-height: 350px;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 20px;
+  display: block;
 }
 
 /* ✅ תמונות נוספות */
-#extra-images {
+.extra-images {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 10px;
 }
 
-#extra-images img {
+.extra-images img {
   width: 140px;
   height: auto;
   border-radius: 8px;
@@ -62,17 +63,17 @@ main {
 }
 
 /* ✅ קובץ מצורף */
-#extra-file-container {
+.extra-file-container {
   margin-top: 20px;
 }
 
-#extra-file-container a {
+.extra-file-container a {
   color: #8e44ad;
   font-weight: bold;
   font-size: 0.95em;
   text-decoration: none;
 }
 
-#extra-file-container a:hover {
+.extra-file-container a:hover {
   text-decoration: underline;
 }

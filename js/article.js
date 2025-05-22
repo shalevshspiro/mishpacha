@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const titleEl = document.getElementById("article-title");
   const contentEl = document.getElementById("article-content");
   const imageEl = document.getElementById("article-image");
-  const extraImagesContainer = document.getElementById("extra-images");
-  const extraFileContainer = document.getElementById("extra-file-container");
+  const extraImagesContainer = document.querySelector(".extra-images");
+  const extraFileContainer = document.querySelector(".extra-file-container");
   const extraFileLink = document.getElementById("extra-file-link");
 
   if (!id) {
@@ -46,9 +46,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       data.extraImages.forEach(url => {
         const img = document.createElement("img");
         img.src = url;
-        img.style.maxWidth = "150px";
-        img.style.borderRadius = "10px";
-        img.style.margin = "5px";
         extraImagesContainer.appendChild(img);
       });
     }
