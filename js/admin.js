@@ -272,5 +272,56 @@ document.addEventListener("DOMContentLoaded", async () => {
       adminPanel.style.display = "none";
       logoutButton.style.display = "none";
     }
+	import { db } from "./firebase.js";
+import {
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// עורך Quill עבור המידע
+const infoEditor = new Quill("#info-editor", {
+  theme: "snow",
+  placeholder: "כתוב כאן את התוכן...",
+  modules: {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "blockquote", "code-block"],
+    ],
+  },
+});
+
+// כפתור לשליחת מידע לאוסף info
+document.getElementById("submit-info").addEventListener("click", async () => {
+  const title = document.getElementById("info-title").value.trim();
+  const category = document.getElementById("info-category").value.trim();
+  const order = parseInt(document.getElementById("info-order").value);
+  const content = infoEditor.root.innerHTML.trim();
+
+  if (!title || !category || isNaN(order) || !content) {
+    alert("נא למלא את כל השדות");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "info"), {
+      title,
+      category,
+      content,
+      order
+    });
+    alert("המידע נשמר בהצלחה");
+    // איפוס הטופס
+    document.getElementById("info-title").value = "";
+    document.getElementById("info-category").value = "";
+    document.getElementById("info-order").value = "";
+    infoEditor.root.innerHTML = "";
+  } catch (error) {
+    console.error("שגיאה בשמירת המידע:", error);
+    alert("אירעה שגיאה. נסה שוב.");
+  }
+});
+
   });
 });

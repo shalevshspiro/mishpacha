@@ -67,6 +67,25 @@
   </form>
 </div>
 
+<section id="info-admin">
+  <h2>הוספת מידע על ילדים יתומים</h2>
+
+  <label for="info-title">כותרת:</label>
+  <input type="text" id="info-title" />
+
+  <label for="info-category">קטגוריה:</label>
+  <input type="text" id="info-category" />
+
+  <label for="info-order">סדר הופעה:</label>
+  <input type="number" id="info-order" />
+
+  <label for="info-content">תוכן:</label>
+  <div id="info-editor" style="height: 200px;"></div>
+
+  <button id="submit-info">שמור מידע</button>
+</section>
+
+
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script type="module" src="js/admin.js"></script>
 </body>
