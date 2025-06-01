@@ -32,50 +32,83 @@ document.addEventListener("DOMContentLoaded", async () => {
   const extraImagesUpload = document.getElementById("extraImagesUpload");
   const extraImagesPreview = document.getElementById("extraImagesPreview");
 
-  window.quill = new Quill("#editor", {
+  const quill = new Quill("#editor", {
     theme: "snow",
     placeholder: "כתוב כאן את תוכן הכתבה..."
   });
 
-  // העלאת תמונה ראשית
+  const infoEditor = new Quill("#info-editor", {
+    theme: "snow",
+    placeholder: "כתוב כאן את התוכן...",
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, 3, false] }],
+        ["bold", "italic", "underline"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "blockquote", "code-block"],
+      ],
+    },
+  });
+
+  document.getElementById("submit-info").addEventListener("click", async () => {
+    const title = document.getElementById("info-title").value.trim();
+    const category = document.getElementById("info-category").value.trim();
+    const order = parseInt(document.getElementById("info-order").value);
+    const content = infoEditor.root.innerHTML.trim();
+
+    if (!title || !category || isNaN(order) || !content) {
+      alert("נא למלא את כל השדות");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "info"), {
+        title,
+        category,
+        content,
+        order
+      });
+      alert("המידע נשמר בהצלחה");
+      document.getElementById("info-title").value = "";
+      document.getElementById("info-category").value = "";
+      document.getElementById("info-order").value = "";
+      infoEditor.root.innerHTML = "";
+    } catch (error) {
+      console.error("שגיאה בשמירה:", error);
+      alert("אירעה שגיאה. נסה שוב.");
+    }
+  });
+
   imageUpload.addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "mishpacha");
-
     const res = await fetch("https://api.cloudinary.com/v1_1/dx2xpx9jg/image/upload", {
       method: "POST",
       body: formData
     });
-
     const data = await res.json();
     imageUrl = data.secure_url;
     previewImage.src = imageUrl;
     previewImage.style.display = "block";
   });
 
-  // העלאת תמונות נוספות
   extraImagesUpload.addEventListener("change", async (e) => {
     const files = Array.from(e.target.files);
     extraImagesUrls = [];
     extraImagesPreview.innerHTML = "";
-
     for (const file of files) {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", "mishpacha");
-
       const res = await fetch("https://api.cloudinary.com/v1_1/dx2xpx9jg/image/upload", {
         method: "POST",
         body: formData
       });
-
       const data = await res.json();
       extraImagesUrls.push(data.secure_url);
-
       const img = document.createElement("img");
       img.src = data.secure_url;
       img.style.maxWidth = "100px";
@@ -84,20 +117,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // העלאת מסמך נוסף
   extraFileUpload.addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "mishpacha");
-
     const res = await fetch("https://api.cloudinary.com/v1_1/dx2xpx9jg/auto/upload", {
       method: "POST",
       body: formData
     });
-
     const data = await res.json();
     extraFileUrl = data.secure_url;
     extraFileLink.href = extraFileUrl;
@@ -105,12 +134,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     extraFileLinkContainer.style.display = "block";
   });
 
-  // התחברות
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         loginForm.style.display = "none";
@@ -127,7 +154,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     signOut(auth).then(() => location.reload());
   });
 
-  // טעינת כתבות
   async function loadArticles() {
     const snapshot = await getDocs(collection(db, "articles"));
     articleSelect.innerHTML = `<option value="">+ כתבה חדשה</option>`;
@@ -140,30 +166,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // בחירת כתבה
   articleSelect.addEventListener("change", async () => {
     const id = articleSelect.value;
     if (!id) {
       resetForm();
       return;
     }
-
     selectedDocId = id;
-    const docRef = doc(db, "articles", id);
     const docSnap = await getDocs(collection(db, "articles"));
     const found = Array.from(docSnap.docs).find(d => d.id === id);
     if (!found) return;
-
     const data = found.data();
     document.getElementById("title").value = data.title || "";
     document.getElementById("intro").value = data.intro || "";
     document.getElementById("category").value = data.category || "";
     quill.root.innerHTML = data.content || "";
-
     imageUrl = data.image || "";
     previewImage.src = imageUrl;
     previewImage.style.display = imageUrl ? "block" : "none";
-
     extraFileUrl = data.extraFile || "";
     if (extraFileUrl) {
       extraFileLink.href = extraFileUrl;
@@ -172,7 +192,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       extraFileLinkContainer.style.display = "none";
     }
-
     extraImagesUrls = data.extraImages || [];
     extraImagesPreview.innerHTML = "";
     extraImagesUrls.forEach(url => {
@@ -182,23 +201,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       img.style.borderRadius = "8px";
       extraImagesPreview.appendChild(img);
     });
-
     deleteBtn.style.display = "inline-block";
   });
 
-  // שמירה/עדכון כתבה
   articleForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const title = document.getElementById("title").value.trim();
     const intro = document.getElementById("intro").value.trim();
     const category = document.getElementById("category").value;
     const content = quill.root.innerHTML;
-
     if (!title || !content) {
       alert("יש למלא לפחות כותרת ותוכן.");
       return;
     }
-
     const data = {
       title,
       intro,
@@ -209,7 +224,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       extraImages: extraImagesUrls,
       updatedAt: serverTimestamp()
     };
-
     try {
       if (selectedDocId) {
         const ref = doc(db, "articles", selectedDocId);
@@ -222,7 +236,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
         alert("כתבה חדשה נוספה.");
       }
-
       resetForm();
       await loadArticles();
     } catch (error) {
@@ -231,11 +244,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // מחיקה
   deleteBtn.addEventListener("click", async () => {
     if (!selectedDocId) return;
     if (!confirm("האם אתה בטוח שברצונך למחוק את הכתבה?")) return;
-
     try {
       await deleteDoc(doc(db, "articles", selectedDocId));
       alert("כתבה נמחקה.");
@@ -272,56 +283,5 @@ document.addEventListener("DOMContentLoaded", async () => {
       adminPanel.style.display = "none";
       logoutButton.style.display = "none";
     }
-	import { db } from "./firebase.js";
-import {
-  collection,
-  addDoc
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-// עורך Quill עבור המידע
-const infoEditor = new Quill("#info-editor", {
-  theme: "snow",
-  placeholder: "כתוב כאן את התוכן...",
-  modules: {
-    toolbar: [
-      [{ header: [1, 2, 3, false] }],
-      ["bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "blockquote", "code-block"],
-    ],
-  },
-});
-
-// כפתור לשליחת מידע לאוסף info
-document.getElementById("submit-info").addEventListener("click", async () => {
-  const title = document.getElementById("info-title").value.trim();
-  const category = document.getElementById("info-category").value.trim();
-  const order = parseInt(document.getElementById("info-order").value);
-  const content = infoEditor.root.innerHTML.trim();
-
-  if (!title || !category || isNaN(order) || !content) {
-    alert("נא למלא את כל השדות");
-    return;
-  }
-
-  try {
-    await addDoc(collection(db, "info"), {
-      title,
-      category,
-      content,
-      order
-    });
-    alert("המידע נשמר בהצלחה");
-    // איפוס הטופס
-    document.getElementById("info-title").value = "";
-    document.getElementById("info-category").value = "";
-    document.getElementById("info-order").value = "";
-    infoEditor.root.innerHTML = "";
-  } catch (error) {
-    console.error("שגיאה בשמירת המידע:", error);
-    alert("אירעה שגיאה. נסה שוב.");
-  }
-});
-
   });
 });
