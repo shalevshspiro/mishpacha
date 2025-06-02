@@ -1,21 +1,19 @@
 import { db } from "./firebase.js";
 import {
   collection,
-  getDocs,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+// שליפת כל המסמכים מאוסף info
 const fetchInfo = async () => {
   const ref = collection(db, "info");
-  const q = query(ref, orderBy("order"));
-  const snapshot = await getDocs(q);
+  const snapshot = await getDocs(ref); // ללא orderBy
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 
+// הצגת כפתורי קטגוריות
 const renderCategories = (categories) => {
   const container = document.getElementById("categories");
-  container.classList.add("category-list");
   container.innerHTML = "";
 
   const uniqueCategories = [...new Set(categories)];
@@ -28,12 +26,16 @@ const renderCategories = (categories) => {
   });
 };
 
+// כל המידע שנטען
 let allData = [];
+
+// סינון לפי קטגוריה
 const filterByCategory = (category) => {
   const filtered = allData.filter(item => item.category === category);
   renderInfo(filtered);
 };
 
+// הצגת המידע בפורמט רשימה אנכית
 const renderInfo = (items) => {
   const container = document.getElementById("info-list");
   container.innerHTML = "";
@@ -44,67 +46,66 @@ const renderInfo = (items) => {
   }
 
   items.forEach(item => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "info-box";
+    const box = document.createElement("div");
+    box.className = "article-box";
 
     const title = document.createElement("div");
-    title.className = "info-title";
+    title.className = "article-title";
     title.textContent = item.title;
 
     const content = document.createElement("div");
-    content.className = "info-content";
+    content.className = "article-content";
     content.style.display = "none";
 
-    if (item.content) {
-      const contentHTML = document.createElement("div");
-      contentHTML.innerHTML = item.content;
-      content.appendChild(contentHTML);
-    }
-
-    // ✅ תמונה ראשית - מגיעה כשדה image
+    // תמונה ראשית
     if (item.image) {
       const img = document.createElement("img");
       img.src = item.image;
-      img.alt = "תמונה ראשית";
       img.className = "main-image";
       content.appendChild(img);
     }
 
-    // ✅ תמונות נוספות
-    if (Array.isArray(item.extraImages)) {
-      const extraWrapper = document.createElement("div");
-      extraWrapper.className = "extra-images";
-      item.extraImages.forEach(url => {
-        const img = document.createElement("img");
-        img.src = url;
-        img.alt = "תמונה נוספת";
-        img.className = "extra-image";
-        extraWrapper.appendChild(img);
-      });
-      content.appendChild(extraWrapper);
-    }
+    // תוכן עשיר
+    const html = document.createElement("div");
+    html.innerHTML = item.content || "";
+    content.appendChild(html);
 
-    // ✅ קובץ מצורף
+    // קובץ מצורף
     if (item.extraFile) {
       const fileLink = document.createElement("a");
       fileLink.href = item.extraFile;
       fileLink.target = "_blank";
+      fileLink.textContent = "📎 פתיחת קובץ מצורף";
       fileLink.className = "file-link";
-      fileLink.textContent = "📄 לחץ להורדת המסמך המצורף";
       content.appendChild(fileLink);
+    }
+
+    // גלריית תמונות נוספות
+    if (item.extraImages && item.extraImages.length > 0) {
+      const gallery = document.createElement("div");
+      gallery.className = "extra-gallery";
+      item.extraImages.forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.className = "extra-image";
+        gallery.appendChild(img);
+      });
+      content.appendChild(gallery);
     }
 
     title.onclick = () => {
       content.style.display = content.style.display === "none" ? "block" : "none";
     };
 
-    wrapper.appendChild(title);
-    wrapper.appendChild(content);
-    container.appendChild(wrapper);
+    box.appendChild(title);
+    box.appendChild(content);
+    container.appendChild(box);
   });
 };
 
+// טעינה ראשונית
 fetchInfo().then(data => {
   allData = data;
   renderCategories(allData.map(d => d.category));
+  renderInfo(allData); // הצגה ראשונית של הכל
 });
