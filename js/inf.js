@@ -4,7 +4,7 @@ import {
   getDocs,
   query,
   orderBy
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // שליפת כל המסמכים
 const fetchInfo = async () => {
