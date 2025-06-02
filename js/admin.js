@@ -130,7 +130,7 @@ infoForm.addEventListener("submit", async (e) => {
   const category = infoForm["info-category"].value;
 const content = infoQuill.root.innerHTML;
   const order = parseInt(infoForm["info-order"].value) || 0;
-  const image = mainImageUrl;
+const image = imageUrl;
   const extraImages = extraImagesUrls;
   const extraFile = extraFileUrl;
 
@@ -150,7 +150,8 @@ const content = infoQuill.root.innerHTML;
     alert("המידע נוסף בהצלחה!");
     infoForm.reset();
     quillInfo.root.innerHTML = "";
-    mainImageUrl = "";
+    imageUrl = "";
+
     extraImagesUrls = [];
     extraFileUrl = "";
   } catch (error) {
