@@ -17,31 +17,16 @@ let extraImagesUrls = [];
 document.addEventListener("DOMContentLoaded", async () => {
   const loginForm = document.getElementById("loginForm");
   const articleForm = document.getElementById("articleForm");
-  const infoForm = document.getElementById("infoForm");
   const adminPanel = document.getElementById("adminPanel");
   const logoutButton = document.getElementById("logout");
   const articleSelect = document.getElementById("articleSelect");
   const deleteBtn = document.getElementById("deleteBtn");
+  const collectionSelect = document.getElementById("collectionSelect");
 
   const quill = new Quill("#editor", {
     theme: "snow",
     placeholder: "כתוב כאן את תוכן הכתבה..."
   });
-
-  const infoQuill = new Quill("#info-editor", {
-    theme: "snow",
-    placeholder: "כתוב כאן את תוכן המידע...",
-    modules: {
-      toolbar: [
-        [{ header: [1, 2, 3, false] }],
-        ["bold", "italic", "underline"],
-        [{ list: "ordered" }, { list: "bullet" }],
-        ["link", "blockquote", "code-block"],
-      ],
-    },
-  });
-
-  // ========== כתבות ==========
 
   // העלאת תמונה לכתבה
   document.getElementById("imageUpload").addEventListener("change", async (e) => {
@@ -88,11 +73,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     const title = document.getElementById("title").value.trim();
     const intro = document.getElementById("intro").value.trim();
     const category = document.getElementById("category").value;
+    const order = parseInt(document.getElementById("order")?.value) || 0;
     const content = quill.root.innerHTML;
+    const collectionName = collectionSelect.value || "articles";
+
     if (!title || !content) {
       alert("יש למלא לפחות כותרת ותוכן.");
       return;
     }
+
     const data = {
       title,
       intro,
@@ -103,80 +92,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       extraImages: extraImagesUrls,
       updatedAt: serverTimestamp()
     };
+
+    if (collectionName === "info") {
+      data.order = order;
+    }
+
     try {
-      if (selectedDocId) {
+      if (collectionName === "articles" && selectedDocId) {
         await updateDoc(doc(db, "articles", selectedDocId), data);
         alert("כתבה עודכנה בהצלחה.");
       } else {
-        await addDoc(collection(db, "articles"), {
+        await addDoc(collection(db, collectionName), {
           ...data,
           createdAt: serverTimestamp()
         });
-        alert("כתבה חדשה נשמרה.");
+        alert("נשמר בהצלחה.");
       }
       resetForm();
-      await loadArticles();
+      if (collectionName === "articles") await loadArticles();
     } catch (err) {
       alert("שגיאה: " + err.message);
     }
-  });
-
-  // ========== מידע ==========
-
-infoForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const title = infoForm["info-title"].value;
-  const intro = infoForm["info-intro"].value;
-  const category = infoForm["info-category"].value;
-const content = infoQuill.root.innerHTML;
-  const order = parseInt(infoForm["info-order"].value) || 0;
-const image = imageUrl;
-  const extraImages = extraImagesUrls;
-  const extraFile = extraFileUrl;
-
-  const data = {
-    title,
-    intro,
-    category,
-    content,
-    image,
-    extraImages,
-    extraFile,
-    order
-  };
-
-  try {
-    await addDoc(collection(db, "info"), data);
-    alert("המידע נוסף בהצלחה!");
-    infoForm.reset();
-    quillInfo.root.innerHTML = "";
-    imageUrl = "";
-
-    extraImagesUrls = [];
-    extraFileUrl = "";
-  } catch (error) {
-    console.error("שגיאה בשמירה:", error);
-    alert("אירעה שגיאה בעת שמירת המידע.");
-  }
-});
-
-  document.getElementById("info-imageUpload").addEventListener("change", async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const url = await uploadToCloudinary(file);
-    const img = document.getElementById("info-previewImage");
-    img.src = url;
-    img.style.display = "block";
-  });
-
-  document.getElementById("info-extraFileUpload").addEventListener("change", async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const url = await uploadToCloudinary(file, true);
-    const link = document.getElementById("info-extraFileLink");
-    link.href = url;
-    link.textContent = file.name;
-    document.getElementById("info-extraFileLinkContainer").style.display = "block";
   });
 
   // התחברות
