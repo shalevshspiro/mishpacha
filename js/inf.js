@@ -8,7 +8,7 @@ import {
 
 // שליפת כל המסמכים
 const fetchInfo = async () => {
-  const ref = collection(db, "Info");
+  const ref = collection(db,"info");
   const q = query(ref, orderBy("order"));
   const snapshot = await getDocs(q);
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
