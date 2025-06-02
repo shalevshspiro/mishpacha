@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     placeholder: "כתוב כאן את תוכן הכתבה..."
   });
 
-  // העלאת תמונה לכתבה
   document.getElementById("imageUpload").addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -39,7 +38,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     img.style.display = "block";
   });
 
-  // תמונות נוספות לכתבה
   document.getElementById("extraImagesUpload").addEventListener("change", async (e) => {
     const files = Array.from(e.target.files);
     extraImagesUrls = [];
@@ -56,7 +54,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // קובץ נוסף לכתבה
   document.getElementById("extraFileUpload").addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -73,7 +70,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const title = document.getElementById("title").value.trim();
     const intro = document.getElementById("intro").value.trim();
     const category = document.getElementById("category").value;
-    const order = parseInt(document.getElementById("order")?.value) || 0;
     const content = quill.root.innerHTML;
     const collectionName = collectionSelect.value || "articles";
 
@@ -93,10 +89,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       updatedAt: serverTimestamp()
     };
 
-    if (collectionName === "info") {
-      data.order = order;
-    }
-
     try {
       if (collectionName === "articles" && selectedDocId) {
         await updateDoc(doc(db, "articles", selectedDocId), data);
@@ -115,7 +107,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // התחברות
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;
