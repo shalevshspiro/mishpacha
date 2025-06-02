@@ -123,41 +123,41 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ========== מידע ==========
 
-  infoForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const title = document.getElementById("info-title").value.trim();
-    const intro = document.getElementById("info-intro").value.trim();
-    const category = document.getElementById("info-category").value.trim();
-    const order = parseInt(document.getElementById("info-order").value);
-    const content = infoQuill.root.innerHTML.trim();
-    const image = document.getElementById("info-previewImage").src || "";
+infoForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const title = infoForm["info-title"].value;
+  const intro = infoForm["info-intro"].value;
+  const category = infoForm["info-category"].value;
+  const content = quillInfo.root.innerHTML;
+  const order = parseInt(infoForm["info-order"].value) || 0;
+  const image = mainImageUrl;
+  const extraImages = extraImagesUrls;
+  const extraFile = extraFileUrl;
 
-    if (!title || !category || isNaN(order) || !content) {
-      alert("נא למלא את כל השדות");
-      return;
-    }
+  const data = {
+    title,
+    intro,
+    category,
+    content,
+    image,
+    extraImages,
+    extraFile,
+    order
+  };
 
-    const data = {
-      title,
-      intro,
-      category,
-      content,
-      image,
-      order
-    };
-
-    try {
-      await addDoc(collection(db, "info"), data);
-      alert("המידע נשמר בהצלחה");
-      infoForm.reset();
-      infoQuill.setText("");
-      document.getElementById("info-previewImage").style.display = "none";
-      document.getElementById("info-extraImagesPreview").innerHTML = "";
-      document.getElementById("info-extraFileLinkContainer").style.display = "none";
-    } catch (err) {
-      alert("שגיאה בשמירת מידע: " + err.message);
-    }
-  });
+  try {
+    await addDoc(collection(db, "info"), data);
+    alert("המידע נוסף בהצלחה!");
+    infoForm.reset();
+    quillInfo.root.innerHTML = "";
+    mainImageUrl = "";
+    extraImagesUrls = [];
+    extraFileUrl = "";
+  } catch (error) {
+    console.error("שגיאה בשמירה:", error);
+    alert("אירעה שגיאה בעת שמירת המידע.");
+  }
+});
 
   document.getElementById("info-imageUpload").addEventListener("change", async (e) => {
     const file = e.target.files[0];
