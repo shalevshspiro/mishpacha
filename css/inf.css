@@ -90,3 +90,47 @@ h1 {
   font-size: 1.1em;
   color: #444;
 }
+/* תמונה ראשית */
+.main-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* גלריית תמונות נוספות */
+.extra-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.extra-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* קישור לקובץ מצורף */
+.file-link {
+  display: inline-block;
+  margin-top: 15px;
+  background-color: #dfe6e9;
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.file-link:hover {
+  background-color: #b2bec3;
+}

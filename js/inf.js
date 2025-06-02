@@ -15,6 +15,7 @@ const fetchInfo = async () => {
 
 const renderCategories = (categories) => {
   const container = document.getElementById("categories");
+  container.classList.add("category-list");
   container.innerHTML = "";
 
   const uniqueCategories = [...new Set(categories)];
@@ -46,15 +47,57 @@ const renderInfo = (items) => {
     const wrapper = document.createElement("div");
     wrapper.className = "info-box";
 
+    // כותרת לחיצה
     const title = document.createElement("div");
     title.className = "info-title";
     title.textContent = item.title;
 
+    // תוכן נפתח
     const content = document.createElement("div");
     content.className = "info-content";
-    content.innerHTML = item.content || "";
     content.style.display = "none";
 
+    // תוכן טקסטואלי
+    if (item.content) {
+      const contentHTML = document.createElement("div");
+      contentHTML.innerHTML = item.content;
+      content.appendChild(contentHTML);
+    }
+
+    // תמונה ראשית
+    if (item.mainImage) {
+      const img = document.createElement("img");
+      img.src = item.mainImage;
+      img.alt = "תמונה ראשית";
+      img.className = "main-image";
+      content.appendChild(img);
+    }
+
+    // תמונות נוספות
+    if (Array.isArray(item.extraImages)) {
+      const extraWrapper = document.createElement("div");
+      extraWrapper.className = "extra-images";
+      item.extraImages.forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "תמונה נוספת";
+        img.className = "extra-image";
+        extraWrapper.appendChild(img);
+      });
+      content.appendChild(extraWrapper);
+    }
+
+    // קובץ מצורף
+    if (item.extraFile) {
+      const fileLink = document.createElement("a");
+      fileLink.href = item.extraFile;
+      fileLink.target = "_blank";
+      fileLink.className = "file-link";
+      fileLink.textContent = "📄 לחץ להורדת המסמך המצורף";
+      content.appendChild(fileLink);
+    }
+
+    // פעולת פתיחה בלחיצה
     title.onclick = () => {
       content.style.display = content.style.display === "none" ? "block" : "none";
     };
