@@ -47,33 +47,30 @@ const renderInfo = (items) => {
     const wrapper = document.createElement("div");
     wrapper.className = "info-box";
 
-    // כותרת לחיצה
     const title = document.createElement("div");
     title.className = "info-title";
     title.textContent = item.title;
 
-    // תוכן נפתח
     const content = document.createElement("div");
     content.className = "info-content";
     content.style.display = "none";
 
-    // תוכן טקסטואלי
     if (item.content) {
       const contentHTML = document.createElement("div");
       contentHTML.innerHTML = item.content;
       content.appendChild(contentHTML);
     }
 
-    // תמונה ראשית
-    if (item.mainImage) {
+    // ✅ תמונה ראשית - מגיעה כשדה image
+    if (item.image) {
       const img = document.createElement("img");
-      img.src = item.mainImage;
+      img.src = item.image;
       img.alt = "תמונה ראשית";
       img.className = "main-image";
       content.appendChild(img);
     }
 
-    // תמונות נוספות
+    // ✅ תמונות נוספות
     if (Array.isArray(item.extraImages)) {
       const extraWrapper = document.createElement("div");
       extraWrapper.className = "extra-images";
@@ -87,7 +84,7 @@ const renderInfo = (items) => {
       content.appendChild(extraWrapper);
     }
 
-    // קובץ מצורף
+    // ✅ קובץ מצורף
     if (item.extraFile) {
       const fileLink = document.createElement("a");
       fileLink.href = item.extraFile;
@@ -97,7 +94,6 @@ const renderInfo = (items) => {
       content.appendChild(fileLink);
     }
 
-    // פעולת פתיחה בלחיצה
     title.onclick = () => {
       content.style.display = content.style.display === "none" ? "block" : "none";
     };
