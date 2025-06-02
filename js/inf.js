@@ -8,7 +8,7 @@ import {
 
 // שליפת כל המסמכים
 const fetchInfo = async () => {
-  const ref = collection(db,"info");
+  const ref = collection(db, "info");
   const q = query(ref, orderBy("order"));
   const snapshot = await getDocs(q);
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -41,6 +41,11 @@ const renderInfo = (items) => {
   const container = document.getElementById("info-list");
   container.innerHTML = "";
 
+  if (items.length === 0) {
+    container.innerHTML = "<p>לא נמצא מידע.</p>";
+    return;
+  }
+
   items.forEach(item => {
     const box = document.createElement("div");
     box.className = "article-box";
@@ -48,13 +53,15 @@ const renderInfo = (items) => {
     const title = document.createElement("div");
     title.className = "article-title";
     title.textContent = item.title;
-    title.onclick = () => {
-      content.style.display = content.style.display === "none" ? "block" : "none";
-    };
 
     const content = document.createElement("div");
     content.className = "article-content";
     content.innerHTML = item.content || "";
+    content.style.display = "none";
+
+    title.onclick = () => {
+      content.style.display = content.style.display === "none" ? "block" : "none";
+    };
 
     box.appendChild(title);
     box.appendChild(content);
