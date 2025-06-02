@@ -1,21 +1,33 @@
 body {
+  margin: 0;
   font-family: "Assistant", sans-serif;
   direction: rtl;
   background-color: #fdfdfd;
-  margin: 0;
-  padding: 0;
   color: #222;
-}
-
-header, footer {
-  text-align: center;
-  padding: 1.5em 0;
-  background-color: #f0f0f0;
+  padding: 20px;
 }
 
 h1 {
+  text-align: center;
   font-size: 2rem;
-  margin: 0;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #8e44ad;
+  background-color: #f3e5f5;
+  padding: 8px 16px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+
+.back-link:hover {
+  background-color: #e1bee7;
 }
 
 #categories {
@@ -23,42 +35,57 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin: 20px 0;
+  margin-bottom: 25px;
 }
 
 .category-button {
-  background-color: #ffc107;
+  background: linear-gradient(90deg, #f39c12, #f1c40f);
+  color: #222;
   border: none;
   padding: 10px 20px;
-  border-radius: 25px;
-  font-size: 1rem;
+  border-radius: 50px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s ease;
+  font-size: 1em;
 }
 
 .category-button:hover {
-  background-color: #e0a800;
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #e67e22, #f39c12);
 }
 
-.article-box {
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  padding: 15px;
-  margin: 15px auto;
-  max-width: 800px;
+#info-list {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.info-box {
   background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
 }
 
-.article-title {
+.info-title {
+  font-size: 1.3rem;
   font-weight: bold;
-  font-size: 1.2rem;
+  color: #2c3e50;
   cursor: pointer;
   margin-bottom: 10px;
+  transition: color 0.2s ease;
 }
 
-.article-content {
+.info-title:hover {
+  color: #8e44ad;
+}
+
+.info-content {
   display: none;
-  margin-top: 10px;
-  line-height: 1.6;
+  padding-top: 10px;
+  line-height: 1.7;
+  font-size: 1.05em;
+  color: #444;
 }

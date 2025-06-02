@@ -6,7 +6,6 @@ import {
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// שליפת כל המסמכים
 const fetchInfo = async () => {
   const ref = collection(db, "info");
   const q = query(ref, orderBy("order"));
@@ -14,7 +13,6 @@ const fetchInfo = async () => {
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 
-// הצגת כפתורי קטגוריות
 const renderCategories = (categories) => {
   const container = document.getElementById("categories");
   container.innerHTML = "";
@@ -29,14 +27,12 @@ const renderCategories = (categories) => {
   });
 };
 
-// הצגת כל הפריטים לפי קטגוריה
 let allData = [];
 const filterByCategory = (category) => {
   const filtered = allData.filter(item => item.category === category);
   renderInfo(filtered);
 };
 
-// הצגת פריטי מידע
 const renderInfo = (items) => {
   const container = document.getElementById("info-list");
   container.innerHTML = "";
@@ -47,15 +43,15 @@ const renderInfo = (items) => {
   }
 
   items.forEach(item => {
-    const box = document.createElement("div");
-    box.className = "article-box";
+    const wrapper = document.createElement("div");
+    wrapper.className = "info-box";
 
     const title = document.createElement("div");
-    title.className = "article-title";
+    title.className = "info-title";
     title.textContent = item.title;
 
     const content = document.createElement("div");
-    content.className = "article-content";
+    content.className = "info-content";
     content.innerHTML = item.content || "";
     content.style.display = "none";
 
@@ -63,13 +59,12 @@ const renderInfo = (items) => {
       content.style.display = content.style.display === "none" ? "block" : "none";
     };
 
-    box.appendChild(title);
-    box.appendChild(content);
-    container.appendChild(box);
+    wrapper.appendChild(title);
+    wrapper.appendChild(content);
+    container.appendChild(wrapper);
   });
 };
 
-// טעינה ראשונית
 fetchInfo().then(data => {
   allData = data;
   renderCategories(allData.map(d => d.category));
