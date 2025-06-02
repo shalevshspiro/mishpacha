@@ -48,29 +48,6 @@
     </div>
     <button type="submit">💾 שמור כתבה</button>
     <button type="button" id="deleteBtn" style="display:none;">🗑 מחק כתבה</button>
-  </form>
-
-  <hr>
-  <h2>📚 הוספת מידע על יתומים</h2>
-  <form id="infoForm">
-    <input type="text" id="info-title" placeholder="כותרת המידע" required>
-    <input type="text" id="info-intro" placeholder="הקדמה (לא חובה)">
-    <input type="text" id="info-category" placeholder="קטגוריה">
-    <input type="number" id="info-order" placeholder="סדר הופעה (מספר)">
-    <input type="file" id="info-imageUpload" accept="image/*">
-    <img id="info-previewImage" style="max-width:200px; display:none; margin-top:10px;">
-    <label for="info-extraImagesUpload">תמונות נוספות</label>
-    <input type="file" id="info-extraImagesUpload" accept="image/*" multiple>
-    <div id="info-extraImagesPreview"></div>
-    <div id="info-editor" style="height:300px;"></div>
-    <label for="info-extraFileUpload">מסמך מצורף</label>
-    <input type="file" id="info-extraFileUpload" accept=".pdf,.doc,.docx,.txt">
-    <div id="info-extraFileLinkContainer" style="display:none;">
-      קובץ הועלה: <a id="info-extraFileLink" target="_blank">פתח קובץ</a>
-    </div>
-    <button type="submit" id="submit-info">💾 שמור מידע</button>
-  </form>
-</div>
 
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script type="module" src="js/admin.js"></script>
