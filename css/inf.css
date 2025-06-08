@@ -7,14 +7,26 @@ body {
   padding: 0;
 }
 
-h1 {
+header.hero {
+  background: linear-gradient(90deg, #8e44ad, #f39c12);
+  color: white;
   text-align: center;
-  font-size: 2rem;
-  margin: 30px auto;
-  background: linear-gradient(90deg, #a15ac2, #f39c12);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: bold;
+  padding: 60px 20px 40px 20px;
+  margin-bottom: 40px;
+}
+
+header.hero h1 {
+  font-size: 2.2rem;
+  margin: 0;
+  font-weight: 700;
+  color: white;
+}
+
+header.hero blockquote {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #fff8e1;
+  margin-top: 15px;
 }
 
 .back-link {
@@ -41,15 +53,14 @@ h1 {
 
 .category-header {
   font-size: 1.6rem;
+  font-weight: bold;
+  color: #222;
   margin-top: 50px;
   cursor: pointer;
-  border-bottom: 2px solid #f39c12;
-  padding-bottom: 5px;
   text-align: center;
-  background: linear-gradient(90deg, #a15ac2, #f39c12);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: opacity 0.3s;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ccc;
+  transition: color 0.3s;
 }
 
 .category-section {
@@ -137,24 +148,4 @@ h1 {
 
 .file-link:hover {
   background-color: #e0e0e0;
-}
-header.hero {
-  background: linear-gradient(90deg, #8e44ad, #f39c12);
-  color: white;
-  text-align: center;
-  padding: 60px 20px 40px 20px;
-  margin-bottom: 40px;
-}
-
-header.hero h1 {
-  font-size: 2.2rem;
-  margin: 0;
-  font-weight: 700;
-}
-
-header.hero blockquote {
-  font-size: 1.1rem;
-  font-style: italic;
-  color: #fff8e1;
-  margin-top: 15px;
 }
