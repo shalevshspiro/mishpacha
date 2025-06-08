@@ -1,22 +1,22 @@
 body {
   margin: 0;
-  font-family: "Assistant", sans-serif;
+  font-family: Arial, sans-serif;
   direction: rtl;
   background-color: #f9f9f9;
   color: #222;
-  padding: 20px;
+  padding: 0;
 }
 
 h1 {
   text-align: center;
   font-size: 2rem;
   color: #333;
-  margin-bottom: 30px;
+  margin: 30px auto;
 }
 
 .back-link {
   display: inline-block;
-  margin-bottom: 20px;
+  margin: 20px;
   text-decoration: none;
   font-weight: bold;
   color: #8e44ad;
@@ -32,16 +32,18 @@ h1 {
 
 #info-container {
   max-width: 900px;
-  margin: 0 auto;
+  margin: 0 auto 60px auto;
+  padding: 0 16px;
 }
 
 .category-header {
   font-size: 1.6rem;
   color: #8e44ad;
-  margin-top: 40px;
+  margin-top: 50px;
   cursor: pointer;
   border-bottom: 2px solid #8e44ad;
   padding-bottom: 5px;
+  text-align: center;
   transition: color 0.3s;
 }
 
@@ -56,19 +58,21 @@ h1 {
 .info-box {
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   transition: all 0.3s ease;
 }
 
 .info-title {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: #2c3e50;
   cursor: pointer;
   margin-bottom: 10px;
   transition: color 0.2s ease;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 6px;
 }
 
 .info-title:hover {
@@ -79,7 +83,7 @@ h1 {
   display: none;
   padding-top: 10px;
   line-height: 1.7;
-  font-size: 1.1em;
+  font-size: 1.05em;
   color: #444;
 }
 
@@ -89,37 +93,40 @@ h1 {
   margin-bottom: 10px;
 }
 
+/* ✅ תמונה ראשית */
 .main-image {
-  width: 100%;
-  max-height: 400px;
+  width: 25%;
+  max-height: 220px;
   object-fit: cover;
   border-radius: 10px;
-  margin-top: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: block;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
 }
 
+/* ✅ גלריית תמונות נוספות */
 .extra-gallery {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 
 .extra-image {
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: auto;
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
+/* ✅ קובץ מצורף */
 .file-link {
   display: inline-block;
   margin-top: 15px;
-  background-color: #dfe6e9;
-  color: #2c3e50;
+  background-color: #f2f2f2;
+  color: #8e44ad;
   text-decoration: none;
   font-weight: bold;
   padding: 10px 16px;
@@ -128,5 +135,5 @@ h1 {
 }
 
 .file-link:hover {
-  background-color: #b2bec3;
+  background-color: #e0e0e0;
 }
