@@ -1,8 +1,5 @@
 import { db } from "./firebase.js";
-import {
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const fetchInfo = async () => {
   const ref = collection(db, "info");
@@ -10,96 +7,100 @@ const fetchInfo = async () => {
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 
-const renderCategories = (categories) => {
-  const container = document.getElementById("categories");
-  container.innerHTML = "";
-
-  const uniqueCategories = [...new Set(categories)];
-  uniqueCategories.forEach(cat => {
-    const btn = document.createElement("button");
-    btn.textContent = cat;
-    btn.className = "category-button";
-    btn.onclick = () => filterByCategory(cat);
-    container.appendChild(btn);
+const groupByCategory = (data) => {
+  const map = {};
+  data.forEach(item => {
+    const cat = item.category || "ללא קטגוריה";
+    if (!map[cat]) map[cat] = [];
+    map[cat].push(item);
   });
+  return map;
 };
 
-let allData = [];
+const createInfoBox = (item) => {
+  const box = document.createElement("div");
+  box.className = "info-box";
 
-const filterByCategory = (category) => {
-  const filtered = allData.filter(item => item.category === category);
-  renderInfo(filtered);
-};
+  const title = document.createElement("div");
+  title.className = "info-title";
+  title.textContent = item.title;
 
-const renderInfo = (items) => {
-  const container = document.getElementById("info-list");
-  container.innerHTML = "";
+  const content = document.createElement("div");
+  content.className = "info-content";
 
-  if (items.length === 0) {
-    container.innerHTML = "<p>לא נמצא מידע.</p>";
-    return;
+  if (item.intro) {
+    const intro = document.createElement("p");
+    intro.textContent = item.intro;
+    intro.className = "info-intro";
+    content.appendChild(intro);
   }
 
-  items.forEach(item => {
-    if (
-      item.title.includes("בדיקה") ||
-      item.category.includes("בדיקה") ||
-      item.title.includes("כיתה א")
-    ) return;
+  if (item.image) {
+    const img = document.createElement("img");
+    img.src = item.image;
+    img.className = "main-image";
+    content.appendChild(img);
+  }
 
-    const box = document.createElement("div");
-    box.className = "info-box";
+  const html = document.createElement("div");
+  html.innerHTML = item.content || "";
+  content.appendChild(html);
 
-    const title = document.createElement("div");
-    title.className = "info-title";
-    title.textContent = item.title;
+  if (item.extraFile) {
+    const fileLink = document.createElement("a");
+    fileLink.href = item.extraFile;
+    fileLink.target = "_blank";
+    fileLink.textContent = "📎 פתיחת קובץ מצורף";
+    fileLink.className = "file-link";
+    content.appendChild(fileLink);
+  }
 
-    const content = document.createElement("div");
-    content.className = "info-content";
-
-    if (item.image) {
+  if (item.extraImages && item.extraImages.length > 0) {
+    const gallery = document.createElement("div");
+    gallery.className = "extra-gallery";
+    item.extraImages.forEach(url => {
       const img = document.createElement("img");
-      img.src = item.image;
-      img.className = "main-image";
-      content.appendChild(img);
-    }
+      img.src = url;
+      img.className = "extra-image";
+      gallery.appendChild(img);
+    });
+    content.appendChild(gallery);
+  }
 
-    const html = document.createElement("div");
-    html.innerHTML = item.content || "";
-    content.appendChild(html);
+  title.onclick = () => {
+    content.style.display = content.style.display === "none" ? "block" : "none";
+  };
 
-    if (item.extraFile) {
-      const fileLink = document.createElement("a");
-      fileLink.href = item.extraFile;
-      fileLink.target = "_blank";
-      fileLink.textContent = "📎 פתיחת קובץ מצורף";
-      fileLink.className = "file-link";
-      content.appendChild(fileLink);
-    }
-
-    if (item.extraImages && item.extraImages.length > 0) {
-      const gallery = document.createElement("div");
-      gallery.className = "extra-gallery";
-      item.extraImages.forEach(url => {
-        const img = document.createElement("img");
-        img.src = url;
-        img.className = "extra-image";
-        gallery.appendChild(img);
-      });
-      content.appendChild(gallery);
-    }
-
-    title.onclick = () => {
-      content.style.display = content.style.display === "none" ? "block" : "none";
-    };
-
-    box.appendChild(title);
-    box.appendChild(content);
-    container.appendChild(box);
-  });
+  content.style.display = "none";
+  box.appendChild(title);
+  box.appendChild(content);
+  return box;
 };
 
 fetchInfo().then(data => {
-  allData = data;
-  renderCategories(allData.map(d => d.category));
+  const grouped = groupByCategory(data);
+  const container = document.getElementById("info-container");
+  container.innerHTML = "";
+
+  Object.entries(grouped).forEach(([category, items]) => {
+    const catHeader = document.createElement("h2");
+    catHeader.className = "category-header";
+    catHeader.textContent = category;
+
+    const section = document.createElement("div");
+    section.className = "category-section";
+    section.style.display = "none";
+
+    items.forEach(item => {
+      const box = createInfoBox(item);
+      section.appendChild(box);
+    });
+
+    catHeader.onclick = () => {
+      section.style.display = section.style.display === "none" ? "block" : "none";
+    };
+
+    container.appendChild(catHeader);
+    container.appendChild(section);
+  });
 });
