@@ -10,8 +10,11 @@ body {
 h1 {
   text-align: center;
   font-size: 2rem;
-  color: #333;
   margin: 30px auto;
+  background: linear-gradient(90deg, #a15ac2, #f39c12);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
 }
 
 .back-link {
@@ -38,17 +41,15 @@ h1 {
 
 .category-header {
   font-size: 1.6rem;
-  color: #8e44ad;
   margin-top: 50px;
   cursor: pointer;
-  border-bottom: 2px solid #8e44ad;
+  border-bottom: 2px solid #f39c12;
   padding-bottom: 5px;
   text-align: center;
-  transition: color 0.3s;
-}
-
-.category-header:hover {
-  color: #5e3370;
+  background: linear-gradient(90deg, #a15ac2, #f39c12);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: opacity 0.3s;
 }
 
 .category-section {
