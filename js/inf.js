@@ -4,14 +4,12 @@ import {
   getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// שליפת כל המסמכים מאוסף info
 const fetchInfo = async () => {
   const ref = collection(db, "info");
-  const snapshot = await getDocs(ref); // ללא orderBy
+  const snapshot = await getDocs(ref);
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 
-// הצגת כפתורי קטגוריות
 const renderCategories = (categories) => {
   const container = document.getElementById("categories");
   container.innerHTML = "";
@@ -26,16 +24,13 @@ const renderCategories = (categories) => {
   });
 };
 
-// כל המידע שנטען
 let allData = [];
 
-// סינון לפי קטגוריה
 const filterByCategory = (category) => {
   const filtered = allData.filter(item => item.category === category);
   renderInfo(filtered);
 };
 
-// הצגת המידע בפורמט רשימה אנכית
 const renderInfo = (items) => {
   const container = document.getElementById("info-list");
   container.innerHTML = "";
@@ -46,18 +41,22 @@ const renderInfo = (items) => {
   }
 
   items.forEach(item => {
+    if (
+      item.title.includes("בדיקה") ||
+      item.category.includes("בדיקה") ||
+      item.title.includes("כיתה א")
+    ) return;
+
     const box = document.createElement("div");
-    box.className = "article-box";
+    box.className = "info-box";
 
     const title = document.createElement("div");
-    title.className = "article-title";
+    title.className = "info-title";
     title.textContent = item.title;
 
     const content = document.createElement("div");
-    content.className = "article-content";
-    content.style.display = "none";
+    content.className = "info-content";
 
-    // תמונה ראשית
     if (item.image) {
       const img = document.createElement("img");
       img.src = item.image;
@@ -65,12 +64,10 @@ const renderInfo = (items) => {
       content.appendChild(img);
     }
 
-    // תוכן עשיר
     const html = document.createElement("div");
     html.innerHTML = item.content || "";
     content.appendChild(html);
 
-    // קובץ מצורף
     if (item.extraFile) {
       const fileLink = document.createElement("a");
       fileLink.href = item.extraFile;
@@ -80,7 +77,6 @@ const renderInfo = (items) => {
       content.appendChild(fileLink);
     }
 
-    // גלריית תמונות נוספות
     if (item.extraImages && item.extraImages.length > 0) {
       const gallery = document.createElement("div");
       gallery.className = "extra-gallery";
@@ -103,9 +99,7 @@ const renderInfo = (items) => {
   });
 };
 
-// טעינה ראשונית
 fetchInfo().then(data => {
   allData = data;
   renderCategories(allData.map(d => d.category));
-  renderInfo(allData); // הצגה ראשונית של הכל
 });
