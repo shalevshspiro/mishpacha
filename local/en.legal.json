@@ -1,0 +1,60 @@
+{
+  "rules": [
+    {
+      "title": "Membership in the Association",
+      "text": "The founders of the association are members from the date of its registration. Any person may apply to join as a member by submitting a commitment form agreeing to comply with the association’s bylaws and the resolutions of the General Assembly. The Board may approve or reject an application, and a rejection may be appealed to the next General Assembly."
+    },
+    {
+      "title": "Rights and Obligations of a Member",
+      "text": "A member of the association is entitled to participate and vote in the General Assembly, to elect and be elected, to take part in the association’s activities, and to benefit from its services. The General Assembly may determine mandatory membership fees. The member remains responsible for all obligations until the termination of their membership."
+    },
+    {
+      "title": "Termination of Membership",
+      "text": "Membership in the association shall terminate in the following cases: death, dissolution of a legal entity, written resignation submitted to the Board, or a decision of the General Assembly upon the recommendation of the Board, due to non-payment of fees, violation of the bylaws, activity contrary to the objectives of the association, or a serious criminal conviction. The member shall be given the right to present their claims before a decision is made."
+    },
+    {
+      "title": "Notices to Members",
+      "text": "Any invitation, warning, or notice shall be delivered to the member in writing, either by hand or by mail, to the address registered in the membership registry. An address may be updated by submitting an official written notice to the association."
+    },
+    {
+      "title": "Convening the General Assembly",
+      "text": "The General Assembly shall be convened by decision of the Board. Notice specifying the date, time, place, and agenda shall be sent to all members at least ten days in advance."
+    },
+    {
+      "title": "Powers of the General Assembly",
+      "text": "The General Assembly shall hear reports from the Board and the Audit Committee, discuss and approve the financial report, and elect the members of the Board and the Audit Committee."
+    },
+    {
+      "title": "Quorum for the General Assembly",
+      "text": "The General Assembly shall convene only if at least one quarter of the association’s members are present. If a quorum is not achieved within one hour, the meeting shall be postponed for one week and shall then be held with any number of participants."
+    },
+    {
+      "title": "Conduct of the Assembly",
+      "text": "The Assembly shall elect from among its members a Chairperson and a Secretary. Decisions shall be adopted by a simple majority; in the event of a tie, the Chairperson shall have a casting vote. The Secretary shall record the minutes of the meeting."
+    },
+    {
+      "title": "Structure of the Board",
+      "text": "The number of Board members shall be determined by the General Assembly and shall be no fewer than two. The Board shall serve until a new Board is elected. A member may resign at any time. Vacancies may be filled as necessary by a temporary appointment made by the remaining Board members."
+    },
+    {
+      "title": "Board Meetings and Resolutions",
+      "text": "The Board shall determine the dates of its meetings and the procedures governing them. Decisions shall be adopted by a majority vote. A unanimous decision shall be deemed valid even without a formal meeting. Minutes shall be recorded for each meeting."
+    },
+    {
+      "title": "Authority for Legal Representation",
+      "text": "The Board may authorize two or more of its members to sign on behalf of the association and to perform legally binding actions in its name."
+    },
+    {
+      "title": "Audit Committee",
+      "text": "The provisions applicable to the Board shall also apply to the Audit Committee, with the necessary modifications."
+    },
+    {
+      "title": "Establishment of Branches",
+      "text": "The association may establish branches by decision of the General Assembly and determine their organizational structure and management procedures."
+    },
+    {
+      "title": "Assets Upon Dissolution",
+      "text": "If the association is dissolved and assets remain after settlement of all liabilities, such assets shall be transferred to another association or public benefit company with similar objectives, duly registered in accordance with the law."
+    }
+  ]
+}

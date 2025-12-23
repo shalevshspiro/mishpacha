@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "Mishpacha Association"
+  },
+  "hero": {
+    "maintenanceTitle": "The Mishpacha Association website is currently under maintenance – thank you for your understanding",
+    "quote": "Every child deserves to grow up with love. We are here to make sure that happens.",
+    "ctaHelp": "🤝 How You Can Help",
+    "ctaContact": "📩 Contact Us"
+  },
+  "about": {
+    "title": "Why Are We Here?",
+    "text": "In Israel, thousands of children live as orphans. Children who did not choose to be born into a painful silence that tries, in every way, to be filled. We believe that every such child deserves not only to survive, but to truly live – to grow within a community, with emotional support, educational opportunities, and a sense of belonging.\n\nThe Mishpacha Association was established to provide exactly that. We are not a replacement – we are a network of care and support."
+  },
+  "donate": {
+    "title": "How Can You Change Lives?",
+    "items": [
+      "🧡 Volunteering – mentoring children, emotional support, and technological professions",
+      "📣 Sharing – every share expands the circle and brings another caring heart"
+    ],
+    "ctaVolunteer": "🙋‍♀️ Want to Volunteer?"
+  },
+  "infoInvite": {
+    "title": "Important Information on the Rights of Orphaned Children",
+    "text": "Whether you are parents, educators, teenagers, or individuals who grew up without one of their parents – we have created an accessible, organized, and up-to-date information space for you. On this page you can find explanations about the rights of orphaned children, coping tools, emotional support, relevant documents, and links to organizations that may help.",
+    "cta": "📚 Go to the Information Page"
+  },
+  "vision": {
+    "title": "Our Vision",
+    "text": "We aspire to build a cross-sector community that provides every orphan in Israel with an equal starting point – through education, professional support, and human guidance that connects hearts.\n\nTogether, we will create a network of belonging, presence, and care. Because even those who are left alone are not truly alone."
+  },
+  "gallery": {
+    "title": "Our Vision in Images",
+    "imageAlt": "Our vision in images"
+  },
+  "contact": {
+    "title": "Let’s Talk",
+    "emailLabel": "Email",
+    "form": {
+      "namePlaceholder": "Full Name",
+      "emailPlaceholder": "Email",
+      "messagePlaceholder": "Message",
+      "submit": "Send",
+      "successAlert": "Your details have been received. We will be in touch. Thank you for your support!"
+    }
+  },
+  "extraInfo": {
+    "title": "Additional Information",
+    "subtext": "More information about the association",
+    "links": {
+      "articles": "📚 Articles",
+      "legal": "📄 Legal Regulations and Policies",
+      "info": "📚 Information for Orphaned Children"
+    }
+  },
+  "footer": {
+    "admin": "🔐 Admin Login"
+  },
+  "media": {
+    "logoAlt": "Association logo"
+  }
+}
